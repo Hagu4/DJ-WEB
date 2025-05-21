@@ -1,0 +1,30 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="simple-header">
+    <h1>Каталог инструментов</h1>
+    <p>Здесь вы найдете лучшие инструменты для ваших задач.</p>
+</div>
+
+<div class="catalog-grid">
+    {% if products %}
+    {% for product in products %}
+    <div class="catalog-card">
+        <div class="catalog-card-content">
+            <h3>{{ product.title }}</h3>
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="catalog-card-image">
+            {% endif %}
+            <p class="catalog-card-price"><strong>Цена:</strong> {{ product.price }} руб.</p>
+            <p class="catalog-card-description">{{ product.short_description }}</p>
+            <a href="{% url 'product_detail' product.id %}" class="catalog-card-button">Подробнее</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="catalog-empty">Товары не найдены.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

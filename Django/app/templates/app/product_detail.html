@@ -1,0 +1,91 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="simple-header">
+    <h1>{{ product.title }}</h1>
+    <p>Подробная информация о товаре.</p>
+</div>
+
+<div class="product-detail-container">
+    <div class="product-detail-content">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-detail-image">
+        {% endif %}
+        <p class="product-detail-price"><strong>Цена:</strong> {{ product.price }} руб.</p>
+        <p class="product-detail-short"><strong>Краткое описание:</strong> {{ product.short_description }}</p>
+        <p class="product-detail-full"><strong>Полное описание:</strong> {{ product.full_description }}</p>
+
+        <!-- Кнопка для отображения формы отзыва -->
+        {% if user.is_authenticated %}
+        <button id="show-review-form" class="review-button">Оставить отзыв</button>
+        {% else %}
+        <h3>Для добавления отзыва, пожалуйста, <a href="{% url 'login' %}">авторизуйтесь</a>.</h3>
+        {% endif %}
+
+        <!-- Форма для отзыва (скрыта по умолчанию) -->
+        <div id="review-form-container" style="display: none;">
+            <h3>Оставить отзыв</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="star-rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                    <input type="hidden" name="rating" id="rating-value">
+                </div>
+                {{ form.text }}
+                <button type="submit" class="review-button">Отправить отзыв</button>
+            </form>
+        </div>
+
+        <!-- Список отзывов -->
+        <div class="reviews-list">
+            <h3>Отзывы</h3>
+            {% for review in reviews %}
+            <div class="review-item">
+                <div class="review-header">
+                    <span class="review-author">{{ review.author }}</span>
+                    <span class="review-date">{{ review.date|date:"d.m.Y H:i" }}</span>
+                    <div class="review-rating">
+                        {% for i in "12345" %}
+                        <span class="star {% if forloop.counter <= review.rating %}filled{% endif %}">★</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <p class="review-text">{{ review.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'catalog' %}" class="product-detail-button">Вернуться в каталог</a>
+    </div>
+</div>
+
+<script>
+    // Показываем форму отзыва при нажатии на кнопку
+    document.getElementById('show-review-form').addEventListener('click', function () {
+        document.getElementById('review-form-container').style.display = 'block';
+    });
+
+    // Рейтинг звездочками
+    document.querySelectorAll('.star-rating .star').forEach(star => {
+        star.addEventListener('click', function () {
+            const value = this.getAttribute('data-value');
+            document.getElementById('rating-value').value = value;
+
+            // Подсвечиваем звездочки
+            document.querySelectorAll('.star-rating .star').forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.add('filled');
+                } else {
+                    s.classList.remove('filled');
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="thanks-container">
+    <h2>Спасибо за ваш отзыв!</h2>
+    <p>Мы благодарим вас за то, что нашли время оставить отзыв. Ваше мнение очень важно для нас!</p>
+    <p>Вот данные, которые вы предоставили:</p>
+    <div class="data-list">
+        <div class="data-item">
+            <span class="data-label">Имя:</span>
+            <span class="data-value">{{ data.name }}</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Email:</span>
+            <span class="data-value">{{ data.email }}</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Оценка сайта:</span>
+            <span class="data-value">{{ data.rating }}</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Что понравилось:</span>
+            <span class="data-value">{{ data.usability|join:", " }}</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Частота использования:</span>
+            <span class="data-value">{{ data.frequency }}</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Комментарии:</span>
+            <span class="data-value">{{ data.comments }}</span>
+        </div>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-primary">Вернуться на главную</a>
+</div>
+{% endblock %}

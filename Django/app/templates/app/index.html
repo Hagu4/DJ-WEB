@@ -1,0 +1,91 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static %}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="{% static 'app/content/result_banner1.png' %}" alt="Первый слайд" class="img-responsive" />
+            <div class="carousel-caption">
+                <p>
+                    Лучшие товары. От лучших производителей
+                    <a class="btn btn-default" href="{% url 'catalog' %}">Читать далее</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="{% static 'app/content/result_banner3.png' %}" alt="Второй слайд" class="img-responsive" />
+            <div class="carousel-caption">
+                <p>
+                    Ремонт любой сложности
+                    <a class="btn btn-default" href="{% url 'repair' %}">Читать далее</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="{% static 'app/content/result_banner2.png' %}" alt="Третий слайд" class="img-responsive" />
+            <div class="carousel-caption">
+                <p>
+                    Скидки на генераторы!!!
+                    <a class="btn btn-default" href="{% url 'news' %}">Читать далее</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+<div class="hero-block">
+    <div class="hero-content">
+        <h1>МастерTool</h1>
+        <p>Ваш надежный партнер в мире бензо и электроинструментов! Мы предлагаем продажу, ремонт и обслуживание инструментов от ведущих брендов.</p>
+        <a href="{% url 'about' %}" class="btn">Узнать больше о нас ♥</a>
+    </div>
+</div>
+
+<div class="services-container">
+    <!-- Блок продажи -->
+    <a href="{% url 'catalog' %}" class="service-card" title="Перейти в каталог инструментов">
+        <div class="card-content">
+            <h3>Продажа инструментов</h3>
+            <p>Широкий ассортимент бензо и электроинструментов от проверенных производителей</p>
+        </div>
+    </a>
+
+    <!-- Блок ремонта -->
+    <a href="{% url 'repair' %}" class="service-card">
+        <div class="card-content">
+            <h3>Ремонт и обслуживание</h3>
+            <p>Профессиональный ремонт и обслуживание вашего инструмента</p>
+        </div>
+    </a>
+
+    <!-- Блок акций -->
+    <a href="{% url 'news' %}" class="service-card">
+        <div class="card-content">
+            <h3>Акции и новости</h3>
+            <p>Следите за нашими специальными предложениями</p>
+        </div>
+    </a>
+</div>
+
+{% endblock %}

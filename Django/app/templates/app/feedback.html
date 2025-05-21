@@ -1,0 +1,58 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="feedback-form">
+    <h2>Обратная связь</h2>
+    <p>Пожалуйста, оставьте ваш отзыв о нашем сайте. Мы ценим ваше мнение!</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="submit-button" class="btn btn-primary">Отправить отзыв</button>
+    </form>
+</div>
+
+<script>
+    // Динамический эффект для кнопки
+    const submitButton = document.getElementById('submit-button');
+
+    submitButton.addEventListener('mouseover', function () {
+        this.style.color = '#000000';
+        this.style.backgroundColor = '#ff8c42';
+        this.style.borderColor = '#ff8c42';
+    });
+
+    submitButton.addEventListener('mouseout', function () {
+        this.style.color = '#ffffff';
+        this.style.backgroundColor = '#000000';
+        this.style.borderColor = '#000000';
+    });
+
+    // Динамический эффект для полей ввода
+    const inputFields = document.querySelectorAll('input, textarea, select');
+
+    inputFields.forEach(function (field) {
+        field.addEventListener('focus', function () {
+            this.style.backgroundColor = '#ffa161';
+            this.style.borderColor = '#ff8c42';
+        });
+
+        field.addEventListener('blur', function () {
+            this.style.backgroundColor = '#f8f9fa';
+            this.style.borderColor = '#000000';
+        });
+    });
+
+    // Динамический эффект для чекбоксов и радиокнопок
+    const checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('focus', function () {
+            this.style.accentColor = '#ff8c42';
+        });
+
+        checkbox.addEventListener('blur', function () {
+            this.style.accentColor = '#000000';
+    });
+</script>
+{% endblock %}
